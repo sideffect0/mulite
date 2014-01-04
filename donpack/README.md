@@ -1,5 +1,4 @@
 #Get Started#
--------
 
 To get started copy contents of `mulite` directory to you server root (currently apache supported)
 

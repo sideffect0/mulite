@@ -92,5 +92,13 @@ class FBTuner{
   $result = $facebook->api('/'.$photo_id.'/?fields=source', 'get', $photo);
   return $result['source'];
  }
+
+ //Backup $#!t
+ public function tagPhoto($photo_id,$tagid){
+   $tag_name = $this->facebook->api('/'.$tagid.'/?fields=name','get');
+   $tag_text = $tag_name["name"];
+   $tag_array =array(array('tag_uid'=>$tagid,'tag_text'=>$tag_text,'x'=>'30','y'=>'50'));
+   $this->facebook->api('/'.$photo_id.'/tags', 'post',array('tags'=>$tag_array) );
+ }
 }
 ?>

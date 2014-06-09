@@ -43,4 +43,12 @@
    require(HOME_VIEW);
   }
 
+
+  function import_model($model_name){
+   require_once(MODELDIR.$model_name.".php");
+  }
+
+  function import_helper($helper_name){
+   require_once(HELPDIR.$model_name.".php");
+  }
 ?>

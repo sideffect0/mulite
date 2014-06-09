@@ -7,7 +7,11 @@
 @url : https://github.com/renlinx007/mulite.git
 
 **/
-
+  
+  $ncompat_version = version_compare(phpversion(),"5.4")<=0;
+  if($ncompat_version){
+        echo "THIS VERSION IS NOT COMPAT ONE";
+  }
   require_once("pathconf.php");
   require_once(CONFIGDIR."urls.php");
   require_once(INCLUDEDIR."error.php");

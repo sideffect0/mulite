@@ -23,7 +23,7 @@ class Model{
  public function __construct(){
   $this->__updatecache = array();
   $this->__conn = mysql_connect(DB_HOST.":".DB_PORT,DB_USER,DB_PSWD);
-  $this->__table = strtolower(get_called_class());	//assumes the table name same as the model name
+  $this->__table = strtolower(get_called_class());  //assumes the table name same as the model name
   if(!($this->__conn)){
      $this->modelError("Error in connecting..");
   }
@@ -81,6 +81,14 @@ class Model{
          $fields = array_keys($fields);
          $this->__varcache = $fields; //$this->__fieldify($fields)
          return $this->__varcache;
+  }
+
+  public function __isfield($field_name){
+   $fields = __fields();
+   if(in_array($field_name,$fields)){
+    return TRUE;
+   }
+   return FALSE;
   }
 
   public function __call($fun, $args) {
@@ -254,7 +262,7 @@ class Model{
        }
 
        public function __findByLike($field,$value,$return_fields=""){
-                    if((!empty($return_fields)) && is_array($return_fields)){
+            if((!empty($return_fields)) && is_array($return_fields)){
              $pk = $this->__primary_key();
              if(in_array($pk,$return_fields)){
                $fields = $return_fields;
@@ -306,7 +314,10 @@ class Model{
       }
 
       public function delete_where($field,$value){
-       if(isset($field) && isset($value)){
+       $field_flag = (!empty($field)) && is_array($field));
+       $value_flag = (!empty($field)) && is_array($field))
+       $must_delete = ($field_flag && $value_flag);
+       if($must_delete){
          $field_field = $field;
          $field_value = $value;
          $query = $this->delete_query()." where `$field_field` = '$field_value'";
@@ -341,6 +352,41 @@ class Model{
        }
        return $rarray;   
       }
+
+        //JSON Serialize & DeSerialize
+      public function as_json($return_fields=''){
+	if(is_array($return_fields)){
+	 $raw_datas = $return_fields;
+	}else{
+	 $raw_datas  = $this->__fields();
+	}
+        $json_data = array();
+        foreach($raw_datas as $raw_data){
+          $json_data[$raw_data] = $this->$raw_data;
+	}
+        return json_encode($json_data);
+      }
+    
+      public function dump_json($return_fields=''){
+	  if(is_array($return_fields)){
+	   $raw_datas = $return_fields;
+	  }else{
+	   $raw_datas = '';
+	  }
+          $json = $this->as_json($raw_datas);
+          echo $json;
+      }
+    
+      public function load_json($json_string){
+          $json_as_array = json_decode($json_string,true);
+          $json_as_array_keys = array_keys($json_as_array);
+          foreach($json_as_array_keys as $jsonelement){
+           if($this->__isfield($jsonelement)){
+	    $this->$jsonelement = $json_as_array[$jsonelement];
+	   }
+          }
+      }
+
 }
 
 ?>

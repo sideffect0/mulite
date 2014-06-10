@@ -305,6 +305,18 @@ class Model{
        }
       }
 
+      public function delete_where($field,$value){
+       if(isset($field) && isset($value)){
+         $field_field = $field;
+         $field_value = $value;
+         $query = $this->delete_query()." where `$field_field` = '$field_value'";
+         $result = $this->__dbquery($query);
+         if(!$result){
+           $this->modelError("Error Occured on Delete");
+         }
+       }
+      }
+
       public function findAll($return_fields=""){
        if((!empty($return_fields)) && is_array($return_fields)){
              $fields = $return_fields;

@@ -84,7 +84,7 @@ class Model{
   }
 
   public function __isfield($field_name){
-   $fields = __fields();
+   $fields = $this->__fields();
    if(in_array($field_name,$fields)){
     return TRUE;
    }
@@ -314,8 +314,8 @@ class Model{
       }
 
       public function delete_where($field,$value){
-       $field_flag = (!empty($field)) && is_array($field));
-       $value_flag = (!empty($field)) && is_array($field))
+       $field_flag = ((!empty($field)) && is_array($field));
+       $value_flag = ((!empty($field)) && is_array($field));
        $must_delete = ($field_flag && $value_flag);
        if($must_delete){
          $field_field = $field;
@@ -353,6 +353,30 @@ class Model{
        return $rarray;   
       }
 
+    
+     public function filter_and($field_values){
+         $fields = array_keys($field_values);
+         $table_fields = $this->__fieldify($this->__fields());
+         $field_query = $this->select_query($table_fields)." where ";
+         foreach($fields as $field){
+            $field_query .= " ".$field."='".$field_values[$field]."' and"; 
+         }
+         $field_query = rtrim($field_query,"and");
+         
+         $result = $this->__dbquery($field_query);
+         if(!$result){
+           $this->modelError("Error Occured on AND filter");
+         }
+         $rarray = array();
+         while($row = mysql_fetch_assoc($result)){
+            array_push($rarray,$row);
+        } 
+        mysql_free_result($result); 
+        if(empty($row)){
+           return $rarray; // 'll be replaced with Exceptions
+        }
+        return $rarray;  
+     }
         //JSON Serialize & DeSerialize
       public function as_json($return_fields=''){
 	if(is_array($return_fields)){
@@ -368,11 +392,12 @@ class Model{
       }
     
       public function dump_json($return_fields=''){
-	  if(is_array($return_fields)){
-	   $raw_datas = $return_fields;
-	  }else{
-	   $raw_datas = '';
-	  }
+       header("Content-type: application/json");
+	   if(is_array($return_fields)){
+	    $raw_datas = $return_fields;
+	   }else{
+	    $raw_datas = '';
+	   }
           $json = $this->as_json($raw_datas);
           echo $json;
       }

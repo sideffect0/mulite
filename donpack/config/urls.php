@@ -7,6 +7,7 @@ define("STATIC_URL","/static/");
 define("MEDIA_URL","/media/");
 $urls = array(
   "home"=>VIEWDIR."home.php",
-  "submitname"=>VIEWDIR."submit.php"
+  "submitname"=>VIEWDIR."submit.php",
+  ADMIN=>VIEWDIR."admin.php"
 );
 ?>

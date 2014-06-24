@@ -5,9 +5,12 @@ define("ADMIN","admin");
 define("ADMIN_URL","/".ADMIN."/");
 define("STATIC_URL","/static/");
 define("MEDIA_URL","/media/");
+/*
+   VIEW NAME => "view php file path"
+*/
 $urls = array(
   "home"=>VIEWDIR."home.php",
-  "submitname"=>VIEWDIR."submit.php",
+  "submitname"=>VIEWDIR."submit.php",  
   ADMIN=>VIEWDIR."admin.php"
 );
 ?>

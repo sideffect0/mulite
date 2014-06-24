@@ -9,13 +9,5 @@
  define("HELPDIR",ROOT.SEP."helpers".SEP);
  define("MEDIADIR",ROOT.SEP."media".SEP);
  define("STATICDIR",ROOT.SEP."static".SEP);
-
-/*
- echo INCLUDEDIR.PHP_EOL;
- echo CONFIGDIR.PHP_EOL;
- echo CONTROLLERDIR.PHP_EOL;
- echo MODELDIR.PHP_EOL;
- echo VIEWDIR.PHP_EOL;
- echo HELPDIR.PHP_EOL;
-*/
+ define("USERLIBDIR",ROOT.SEP."userlib".SEP)
 ?>

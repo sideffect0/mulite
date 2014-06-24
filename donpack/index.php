@@ -32,6 +32,14 @@
    else{
      if(isset($urls[$view])){
        require($urls[$view]);
+       $controller_class = $view."Controller";
+       $controller_ob = new $controller_class();
+       if(isset($_PARAM) && (strlen($_PARAM)!=0)){
+	$controller_func = $_PARAM;
+        $controller_ob->$controller_func();
+       }else{
+	$controller_ob->__index();
+       }
      }
      else{
        header('HTTP/1.0 404 Not Found');

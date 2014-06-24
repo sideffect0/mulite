@@ -9,8 +9,7 @@ define("MEDIA_URL","/media/");
    VIEW NAME => "view php file path"
 */
 $urls = array(
-  "home"=>VIEWDIR."home.php",
-  "submitname"=>VIEWDIR."submit.php",  
-  ADMIN=>VIEWDIR."admin.php"
+  "home"=>CONTROLLERDIR."home.php",
+  "check"=>CONTROLLERDIR."check.php"
 );
 ?>

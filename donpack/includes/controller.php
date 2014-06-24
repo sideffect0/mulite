@@ -12,7 +12,7 @@ class BaseController{
     $called = $called[0];
     $error = PHP_EOL."Error From Controller  : '$called'".PHP_EOL."Error was : $error";
     if(CONTROLLER_DEBUG){
-    die($error);
+     die($error);
     }
     else{
      error_log($error);

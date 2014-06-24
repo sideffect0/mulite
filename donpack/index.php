@@ -17,6 +17,7 @@
   require_once(INCLUDEDIR."error.php");
   $filter1   = explode("?",$_SERVER["REQUEST_URI"]);
   $filter2   = explode("/",$filter1[0]);
+  include_once(USERLIBDIR."autoload.php");
   if($filter2[1]){
    $view = $filter2[1];
    $_PARAM = $filter2[2];
@@ -72,6 +73,4 @@
      $data = (object)$__data_nop[1];
      include_once(TEMPLATEDIR.$template_name.".tpl");
   }
-
-  include_once(USERLIBDIR."autoload.php");
 ?>

@@ -328,6 +328,10 @@ class Model{
        }
       }
 
+      public function query($query_string){
+	return $this->__dbquery($query_string);
+      }
+
       public function findAll($return_fields=""){
        if((!empty($return_fields)) && is_array($return_fields)){
              $fields = $return_fields;
@@ -411,6 +415,7 @@ class Model{
 	   }
           }
       }
+
 
 }
 

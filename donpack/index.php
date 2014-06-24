@@ -51,6 +51,13 @@
    require(HOME_VIEW);
   }
 
+  function import_module($module_name){
+   require_once(USERLIBDIR.$module_name.".php");
+  }
+
+  function import_lib($lib_name){
+    require_once(INCLUDEDIR.$lib_name.".php");
+  }
 
   function import_model($model_name){
    require_once(MODELDIR.$model_name.".php");
@@ -58,6 +65,12 @@
 
   function import_helper($helper_name){
    require_once(HELPDIR.$model_name.".php");
+  }
+
+  function render_template($template_name){ // Can Get Passed vars
+     $__data_nop = func_get_args();
+     $data = (object)$__data_nop[1];
+     include_once(TEMPLATEDIR.$template_name.".tpl");
   }
 
   include_once(USERLIBDIR."autoload.php");

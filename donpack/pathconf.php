@@ -9,5 +9,5 @@
  define("HELPDIR",ROOT.SEP."helpers".SEP);
  define("MEDIADIR",ROOT.SEP."media".SEP);
  define("STATICDIR",ROOT.SEP."static".SEP);
- define("USERLIBDIR",ROOT.SEP."userlib".SEP)
+ define("USERLIBDIR",ROOT.SEP."modules".SEP)
 ?>

@@ -10,4 +10,5 @@
  define("MEDIADIR",ROOT.SEP."media".SEP);
  define("STATICDIR",ROOT.SEP."static".SEP);
  define("USERLIBDIR",ROOT.SEP."modules".SEP)
+ define("TEMPLATEDIR",VIEWDIR."templates".SEP);
 ?>

@@ -10,7 +10,7 @@
   
   $ncompat_version = version_compare(phpversion(),"5.4")<=0;
   if($ncompat_version){
-        echo "THIS VERSION IS NOT COMPAT ONE";
+        die("THIS VERSION IS NOT COMPAT ONE");
   }
   require_once("pathconf.php");
   require_once(CONFIGDIR."urls.php");
@@ -51,4 +51,6 @@
   function import_helper($helper_name){
    require_once(HELPDIR.$model_name.".php");
   }
+
+  include_once(USERLIBDIR."autoload.php");
 ?>

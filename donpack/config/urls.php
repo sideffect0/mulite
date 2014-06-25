@@ -10,6 +10,6 @@ define("MEDIA_URL","/media/");
 */
 $urls = array(
   "home"=>CONTROLLERDIR."home.php",
-  "check"=>CONTROLLERDIR."check.php"
+  "test"=>CONTROLLERDIR."test_controller.php"
 );
 ?>

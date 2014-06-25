@@ -1,7 +1,7 @@
 <?php
  define("DB_HOST","localhost");
  define("DB_PORT","");
- define("DB_NAME","fifa");
+ define("DB_NAME","test");
  define("DB_USER","root");
  define("DB_PSWD","coolingfan");
  define("MODEL_DEBUG",TRUE);

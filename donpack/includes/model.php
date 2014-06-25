@@ -320,10 +320,10 @@ class Model{
       //@user functions no underscores :P
 
       public function save($field_as_array){
-	 if( __ispk_auto_increment() ){
-	  throw new Exception("Use Function save_insert for insert | save_update for update");
+	 $__pk = $this->__primarykey();
+	 if( __ispk_auto_increment($__pk)){
+	  throw new Exception("Use Function save_insert for insert | save_update for update");exit;
 	 }
-         $__pk = $this->__primarykey();
          if(is_array($field_as_array)){
 	  $fkeys = array_keys($field_as_array);
           foreach($fkeys as $fkey)

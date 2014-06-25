@@ -16,6 +16,8 @@ class Model{
   protected $id; 
   private $__varcache;
   private $__updatecache;
+  private $__ispk_ai;
+
 /*
   public LIMIT;  'll update soon
   public OFFSET; 
@@ -74,6 +76,7 @@ class Model{
          unset($fields['__conn']);
          unset($fields['__db_flag']);
          unset($fields['__table']);
+	 unset($fields['__ispk_ai']);
          $pk_default = $this->__primarykey();
          if($pk_default != "id"){
           unset($fields['id']);
@@ -136,6 +139,30 @@ class Model{
          return "id";
      }
 
+     public function __ispk_auto_increment($field){
+	if(isset($__ispk_ai)){
+	 return $__ispk_ai;
+        }else{
+	 $__ispk_ai = FALSE;
+	 $query = "show columns from ".$this->__table;
+	 $result = __dbquery($query);
+	 while($row = mysql_fetch_assoc($result)){
+	  if($row["Extra"] == "auto_increment"){
+	   $__auto_incr = $row["Field"];
+	  }
+	  if($row["Key"] == "PRI"){
+           $__pri_f = $row["Field"];
+	  }
+	 }
+ 	 if((isset($__pri_f)) && (isset($__auto_incr))){
+	  if($__auto_incr == $__pri_f){
+	   $__ispk_ai = TRUE;
+	  }
+	 }
+         return $__ispk_ai;
+        }
+     }
+
      public function __track($var){
          if(in_array($var,$this->__updatecache)){
           return;
@@ -151,7 +178,7 @@ class Model{
          }
          $fields = $this->__fieldify($field_array);
          // Get Values
-          $values = "";
+         $values = "";
          foreach($field_array as $field){
           $value = $this->$field;
           $values = $values."'$value',";
@@ -292,13 +319,48 @@ class Model{
 
       //@user functions no underscores :P
 
-      public function save(){
+      public function save($field_as_array){
+	 if( __ispk_auto_increment() ){
+	  throw new Exception("Use Function save_insert for insert | save_update for update");
+	 }
          $__pk = $this->__primarykey();
+         if(is_array($field_as_array)){
+	  $fkeys = array_keys($field_as_array);
+          foreach($fkeys as $fkey)
+          {
+	    $value = $field_as_array[$fkey];
+ 	    $this->__set($fkey,$value);
+          }
+         }
          if(isset($this->$__pk)){
              $this->__update("save");
          }else{
              $this->__insert("save");
          }
+      }
+
+      public function save_insert($field_as_array){
+	if(is_array($field_as_array)){
+	  $fkeys = array_keys($field_as_array);
+          foreach($fkeys as $fkey)
+          {
+	    $value = $field_as_array[$fkey];
+ 	    $this->__set($fkey,$value);
+          }
+          $this->__insert("save_insert");
+        }
+      }
+
+      public function save_update($field_as_array){
+	if(is_array($field_as_array)){
+	  $fkeys = array_keys($field_as_array);
+          foreach($fkeys as $fkey)
+          {
+	    $value = $field_as_array[$fkey];
+ 	    $this->__set($fkey,$value);
+          }
+          $this->__update("save_update");
+        }
       }
 
       public function delete(){

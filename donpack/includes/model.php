@@ -347,8 +347,8 @@ class Model{
 	    $value = $field_as_array[$fkey];
  	    $this->__set($fkey,$value);
           }
-          $this->__insert("save_insert");
         }
+	$this->__insert("save_insert");
       }
 
       public function save_update($field_as_array){
@@ -359,8 +359,8 @@ class Model{
 	    $value = $field_as_array[$fkey];
  	    $this->__set($fkey,$value);
           }
-          $this->__update("save_update");
         }
+        $this->__update("save_update");
       }
 
       public function delete(){

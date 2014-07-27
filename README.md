@@ -2,4 +2,4 @@ mulite
 =======
 
 STOPPED DEVELOPMENT
-Use `laravel` [link]http://laravel.com[/link]
+Use `laravel` http://laravel.com

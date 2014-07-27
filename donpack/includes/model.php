@@ -140,10 +140,10 @@ class Model{
      }
 
      public function __ispk_auto_increment($field){
-	if(isset($__ispk_ai)){
-	 return $__ispk_ai;
+	if(isset($this->__ispk_ai)){
+	 return $this->__ispk_ai;
         }else{
-	 $__ispk_ai = FALSE;
+	 $this->__ispk_ai = FALSE;
 	 $query = "show columns from ".$this->__table;
 	 $result = __dbquery($query);
 	 while($row = mysql_fetch_assoc($result)){
@@ -156,10 +156,10 @@ class Model{
 	 }
  	 if((isset($__pri_f)) && (isset($__auto_incr))){
 	  if($__auto_incr == $__pri_f){
-	   $__ispk_ai = TRUE;
+	   $this->__ispk_ai = TRUE;
 	  }
 	 }
-         return $__ispk_ai;
+         return $this->__ispk_ai;
         }
      }
 
@@ -226,7 +226,7 @@ class Model{
        public function __dbinsertid(){
          return mysql_insert_id();
        }
-        
+
        public function __getByExact($field,$value,$return_fields=""){
 
           if((!empty($return_fields)) && is_array($return_fields)){
@@ -321,7 +321,7 @@ class Model{
 
       public function save($field_as_array){
 	 $__pk = $this->__primarykey();
-	 if( __ispk_auto_increment($__pk)){
+	 if( $this->__ispk_auto_increment($__pk)){
 	  throw new Exception("Use Function save_insert for insert | save_update for update");exit;
 	 }
          if(is_array($field_as_array)){
